@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 set(OMP_NUM_THREADS 8)
 
 find_package(OpenCV 3 REQUIRED)
-find_package(Eigen3 3.3 REQUIRED)
+find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS
     system
     filesystem
@@ -18,6 +18,10 @@ find_package(PkgConfig)
 
 find_package(PythonLibs REQUIRED)
 
+
+add_definitions(${EIGEN3_DEFINITIONS})
+
+
 include_directories(
 	include
     third_party/matplotlib-cpp
@@ -25,7 +29,7 @@ include_directories(
 	${catkin_INCLUDE_DIRS}
 	${OpenCV_INCLUDE_DIRS}
 	${Boost_INCLUDE_DIRS}
-    ${EIGEN_INCLUDE_DIR}
+    ${EIGEN3_INCLUDE_DIR}
 )
 
 get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
@@ -41,7 +45,6 @@ target_link_libraries(features
 	${catkin_LIBRARIES}
 	${OpenCV_LIBRARIES}
 	${Boost_INCLUDE_DIRS}
-    Eigen3::Eigen
 )
 
 add_library(radar_utils
@@ -52,7 +55,6 @@ target_link_libraries(radar_utils
 	${catkin_LIBRARIES}
 	${OpenCV_LIBRARIES}
 	${Boost_INCLUDE_DIRS}
-    Eigen3::Eigen
 )
 
 add_library(association
@@ -62,7 +64,6 @@ add_library(association
 target_link_libraries(association
 	${catkin_LIBRARIES}
 	${Boost_INCLUDE_DIRS}
-    Eigen3::Eigen
 )
 
 add_executable(visualization src/visualization.cpp)
