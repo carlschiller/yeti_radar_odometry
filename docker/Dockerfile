@@ -53,6 +53,6 @@ RUN git clone https://$GIT_TOKEN@github.com/jbeder/yaml-cpp.git
 RUN cd yaml-cpp && mkdir build && cd build && cmake .. && make -j32 && make install
 
 RUN mkdir catkin_ws && cd catkin_ws && mkdir src && cd src && \
-    git clone https://$GIT_TOKEN@github.com/carlschiller/yeti.git && \
+    git clone https://$GIT_TOKEN@github.com/carlschiller/yeti_radar_odometry.git && \
     cd .. && catkin config --extend /steam_ws/devel/repo && \
     catkin build
